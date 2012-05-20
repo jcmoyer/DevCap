@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ using System.Windows.Forms;
 namespace DevCap {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
+        private bool _showIco = false;
 
         public MainWindow() {
             InitializeComponent();
@@ -28,7 +30,12 @@ namespace DevCap {
                     Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
                 };
             }
-            _cap.Start();
+            try {
+                _cap.Start();
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             _startBtn.Enabled = false;
             _stopBtn.Enabled = true;
@@ -91,8 +98,17 @@ namespace DevCap {
         }
 
         private void MainWindowFormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.ApplicationExitCall) {
+                return;
+            }
+
             e.Cancel = true;
             Hide();
+
+            if (!_showIco) {
+                _notifyIco.ShowBalloonTip(5000, Application.ProductName, "DevCap will continue running in the tray here. Right click the icon for various commands.", ToolTipIcon.Info);
+            }
+            _showIco = true;
         }
 
         private void NotifyIcoDoubleClick(object sender, EventArgs e) {
