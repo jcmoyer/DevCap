@@ -65,8 +65,10 @@ namespace DevCap {
                 g.CopyFromScreen(_bounds.Location, new Point(), _bounds.Size);
 
                 if (Cursor.Current != null) {
-                    Rectangle cursorBounds = new Rectangle(Point.Subtract(Cursor.Position, _bounds.Size), Cursor.Current.Size);
-                    Cursors.Default.Draw(g, cursorBounds);
+                    Point cursorDest = Cursor.Position;
+                    cursorDest.X -= Cursor.Current.HotSpot.X;
+                    cursorDest.Y -= Cursor.Current.HotSpot.Y;
+                    Cursors.Default.Draw(g, new Rectangle(cursorDest, Cursor.Current.Size));
                 }
             }
 
