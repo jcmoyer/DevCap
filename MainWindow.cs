@@ -134,5 +134,9 @@ $MINUTE
 $SECOND
 $NUMBER", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void ExitBtnClick(object sender, EventArgs e) {
+            Application.Exit();
+        }
     }
 }

@@ -48,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this._fmtHelpBtn = new System.Windows.Forms.Button();
             this._folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this._exitBtn = new System.Windows.Forms.Button();
             this._trayMenu.SuspendLayout();
             this._stypeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._intervalNum)).BeginInit();
@@ -274,11 +275,22 @@
             this._fmtHelpBtn.UseVisualStyleBackColor = true;
             this._fmtHelpBtn.Click += new System.EventHandler(this.FmtHelpBtnClick);
             // 
+            // _exitBtn
+            // 
+            this._exitBtn.Location = new System.Drawing.Point(15, 196);
+            this._exitBtn.Name = "_exitBtn";
+            this._exitBtn.Size = new System.Drawing.Size(75, 23);
+            this._exitBtn.TabIndex = 11;
+            this._exitBtn.Text = "Exit";
+            this._exitBtn.UseVisualStyleBackColor = true;
+            this._exitBtn.Click += new System.EventHandler(this.ExitBtnClick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(470, 231);
+            this.Controls.Add(this._exitBtn);
             this.Controls.Add(this._fmtHelpBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this._fmtTxt);
@@ -327,6 +339,7 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button _exitBtn;
     }
 }
 
