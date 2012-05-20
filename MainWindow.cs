@@ -27,6 +27,8 @@ namespace DevCap {
 
             _startBtn.Enabled = false;
             _stopBtn.Enabled = true;
+            stopToolStripMenuItem.Enabled = true;
+            startToolStripMenuItem.Enabled = false;
         }
 
         private void StopBtnClick(object sender, EventArgs e) {
@@ -40,19 +42,23 @@ namespace DevCap {
             }
             _stopBtn.Enabled = false;
             _startBtn.Enabled = true;
+            stopToolStripMenuItem.Enabled = false;
+            startToolStripMenuItem.Enabled = true;
         }
 
         private ImageFormat SelectedFormat {
             get {
                 if (_jpgRad.Checked) {
                     return ImageFormat.Jpeg;
-                } else if (_pngRad.Checked) {
-                    return ImageFormat.Png;
-                } else if (_bmpRad.Checked) {
-                    return ImageFormat.Bmp;
-                } else {
-                    return ImageFormat.Jpeg;
                 }
+                if (_pngRad.Checked) {
+                    return ImageFormat.Png;
+                }
+                if (_bmpRad.Checked) {
+                    return ImageFormat.Bmp;
+                }
+                // Default to jpeg
+                return ImageFormat.Jpeg;
             }
         }
 
@@ -61,6 +67,31 @@ namespace DevCap {
             if (dr == DialogResult.OK) {
                 _dirTxt.Text = _folderBrowser.SelectedPath;
             }
+        }
+
+        private void ShowToolStripMenuItemClick(object sender, EventArgs e) {
+            Show();
+        }
+
+        private void StartToolStripMenuItemClick(object sender, EventArgs e) {
+            StartBtnClick(sender, e);
+        }
+
+        private void StopToolStripMenuItemClick(object sender, EventArgs e) {
+            StopBtnClick(sender, e);
+        }
+
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void MainWindowFormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            Hide();
+        }
+
+        private void NotifyIcoDoubleClick(object sender, EventArgs e) {
+            Show();
         }
     }
 }
