@@ -65,6 +65,11 @@ namespace DevCap {
         }
 
         private void PopulateScreens() {
+            // If the user has multiple monitors, add an option for their combined space.
+            if (Screen.AllScreens.Length > 1) {
+                _screensBox.Items.Add(new ScreenInfo("All Monitors", SystemInformation.VirtualScreen, SystemInformation.VirtualScreen));
+            }
+            
             foreach (var screen in Screen.AllScreens) {
                 _screensBox.Items.Add(new ScreenInfo(screen));
             }
