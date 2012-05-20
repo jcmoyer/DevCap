@@ -278,6 +278,7 @@
             // 
             // _exitBtn
             // 
+            this._exitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._exitBtn.Location = new System.Drawing.Point(12, 196);
             this._exitBtn.Name = "_exitBtn";
             this._exitBtn.Size = new System.Drawing.Size(75, 23);
