@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DevCap.Properties;
 
 namespace DevCap {
     static class Program {
@@ -17,7 +18,11 @@ namespace DevCap {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+
+            using (MainWindow window = new MainWindow()) {
+                Application.Run(window);
+                Settings.Default.Save();
+            }
         }
     }
 }

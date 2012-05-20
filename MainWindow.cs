@@ -13,23 +13,50 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DevCap.Properties;
 
 namespace DevCap {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
-        private bool _showIco = false;
 
         public MainWindow() {
             InitializeComponent();
 
+            if (String.IsNullOrWhiteSpace(Settings.Default.Directory)) {
+                SetDefaultDirectory();
+            } else {
+                _dirTxt.Text = Settings.Default.Directory;
+            }
+
+            if (String.IsNullOrWhiteSpace(Settings.Default.Format)) {
+                _fmtTxt.Text = ScreenCapturer.DefaultFormatString;
+            } else {
+                _fmtTxt.Text = Settings.Default.Format;
+            }
+
+            decimal interval = (decimal)Settings.Default.Interval;
+            if (interval < _intervalNum.Minimum) {
+                Settings.Default.Interval = (double)_intervalNum.Minimum;
+            } else if (interval > _intervalNum.Maximum) {
+                Settings.Default.Interval = (double)_intervalNum.Maximum;
+            }
+            _intervalNum.Value = (decimal)Settings.Default.Interval;
+
+            foreach (RadioButton rad in _stypeGroup.Controls) {
+                if (rad.Text.Equals(Settings.Default.ScreenshotType, StringComparison.OrdinalIgnoreCase)) {
+                    rad.Checked = true;
+                    break;
+                }
+            }
+        }
+
+        private void SetDefaultDirectory() {
             foreach (var di in DriveInfo.GetDrives()) {
                 if (di.DriveType == DriveType.Fixed) {
                     _dirTxt.Text = Path.Combine(di.RootDirectory.FullName, "DevCap");
                     break;
                 }
             }
-
-            _fmtTxt.Text = ScreenCapturer.DefaultFormatString;
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
@@ -93,6 +120,18 @@ namespace DevCap {
             }
         }
 
+        private string Directory {
+            get { return _dirTxt.Text; }
+        }
+
+        private double Interval {
+            get { return (double)_intervalNum.Value; }
+        }
+
+        private string Format {
+            get { return _fmtTxt.Text; }
+        }
+
         private void BrowseBtnClick(object sender, EventArgs e) {
             var dr = _folderBrowser.ShowDialog();
             if (dr == DialogResult.OK) {
@@ -116,18 +155,26 @@ namespace DevCap {
             Application.Exit();
         }
 
+        private void ApplySettings() {
+            Settings.Default.Directory = Directory;
+            Settings.Default.Format = Format;
+            Settings.Default.Interval = Interval;
+            Settings.Default.ScreenshotType = SelectedFormat.ToString();
+        }
+
         private void MainWindowFormClosing(object sender, FormClosingEventArgs e) {
             if (e.CloseReason == CloseReason.ApplicationExitCall) {
+                ApplySettings();
                 return;
             }
 
             e.Cancel = true;
             Hide();
 
-            if (!_showIco) {
+            if (!Settings.Default.NotifiedUser) {
                 _notifyIco.ShowBalloonTip(5000, Application.ProductName, "DevCap will continue running in the tray here. Right click the icon for various commands.", ToolTipIcon.Info);
+                Settings.Default.NotifiedUser = true;
             }
-            _showIco = true;
         }
 
         private void NotifyIcoDoubleClick(object sender, EventArgs e) {

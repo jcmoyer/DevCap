@@ -185,6 +185,7 @@
             this._jpgRad.Size = new System.Drawing.Size(45, 17);
             this._jpgRad.TabIndex = 0;
             this._jpgRad.TabStop = true;
+            this._jpgRad.Tag = "";
             this._jpgRad.Text = "JPG";
             this._jpgRad.UseVisualStyleBackColor = true;
             // 
