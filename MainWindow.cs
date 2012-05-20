@@ -4,14 +4,10 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DevCap.Properties;
 
@@ -21,7 +17,73 @@ namespace DevCap {
 
         public MainWindow() {
             InitializeComponent();
+            PopulateSettings();
+        }
 
+        private ImageFormat SelectedFormat {
+            get {
+                if (_jpgRad.Checked) {
+                    return ImageFormat.Jpeg;
+                }
+                if (_pngRad.Checked) {
+                    return ImageFormat.Png;
+                }
+                if (_bmpRad.Checked) {
+                    return ImageFormat.Bmp;
+                }
+                // Default to jpeg
+                return ImageFormat.Jpeg;
+            }
+        }
+
+        private string Directory {
+            get { return _dirTxt.Text; }
+        }
+
+        private double Interval {
+            get { return (double)_intervalNum.Value; }
+        }
+
+        private string Format {
+            get { return _fmtTxt.Text; }
+        }
+
+        private bool IsCaptureAreaValid {
+            get {
+                int r;
+                if (!Int32.TryParse(_capXTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capYTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capWTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capHTxt.Text, out r)) {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        private Rectangle CaptureArea {
+            get {
+                return new Rectangle(
+                    Int32.Parse(_capXTxt.Text),
+                    Int32.Parse(_capYTxt.Text),
+                    Int32.Parse(_capWTxt.Text),
+                    Int32.Parse(_capHTxt.Text));
+            }
+            set {
+                _capXTxt.Text = value.X.ToString(CultureInfo.InvariantCulture);
+                _capYTxt.Text = value.Y.ToString(CultureInfo.InvariantCulture);
+                _capWTxt.Text = value.Width.ToString(CultureInfo.InvariantCulture);
+                _capHTxt.Text = value.Height.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        private void PopulateSettings() {
             if (String.IsNullOrWhiteSpace(Settings.Default.Directory)) {
                 SetDefaultDirectory();
             } else {
@@ -145,34 +207,6 @@ namespace DevCap {
             EnableSettings(true);
         }
 
-        private ImageFormat SelectedFormat {
-            get {
-                if (_jpgRad.Checked) {
-                    return ImageFormat.Jpeg;
-                }
-                if (_pngRad.Checked) {
-                    return ImageFormat.Png;
-                }
-                if (_bmpRad.Checked) {
-                    return ImageFormat.Bmp;
-                }
-                // Default to jpeg
-                return ImageFormat.Jpeg;
-            }
-        }
-
-        private string Directory {
-            get { return _dirTxt.Text; }
-        }
-
-        private double Interval {
-            get { return (double)_intervalNum.Value; }
-        }
-
-        private string Format {
-            get { return _fmtTxt.Text; }
-        }
-
         private void BrowseBtnClick(object sender, EventArgs e) {
             var dr = _folderBrowser.ShowDialog();
             if (dr == DialogResult.OK) {
@@ -261,59 +295,24 @@ If no format string is given, it will default to:
         private void SetCaptureHeightValue() {
             ScreenInfo info = (ScreenInfo)_screensBox.SelectedItem;
             if (_includeTaskbarChk.Checked) {
-                _capHTxt.Text = info.Bounds.Height.ToString();
+                _capHTxt.Text = info.Bounds.Height.ToString(CultureInfo.InvariantCulture);
             } else {
-                _capHTxt.Text = info.WorkingArea.Height.ToString();
+                _capHTxt.Text = info.WorkingArea.Height.ToString(CultureInfo.InvariantCulture);
             }
         }
 
         private void SetCaptureAreaValues() {
             ScreenInfo info = (ScreenInfo)_screensBox.SelectedItem;
             if (_includeTaskbarChk.Checked) {
-                _capXTxt.Text = info.Bounds.X.ToString();
-                _capYTxt.Text = info.Bounds.Y.ToString();
-                _capWTxt.Text = info.Bounds.Width.ToString();
-                _capHTxt.Text = info.Bounds.Height.ToString();
+                _capXTxt.Text = info.Bounds.X.ToString(CultureInfo.InvariantCulture);
+                _capYTxt.Text = info.Bounds.Y.ToString(CultureInfo.InvariantCulture);
+                _capWTxt.Text = info.Bounds.Width.ToString(CultureInfo.InvariantCulture);
+                _capHTxt.Text = info.Bounds.Height.ToString(CultureInfo.InvariantCulture);
             } else {
-                _capXTxt.Text = info.WorkingArea.X.ToString();
-                _capYTxt.Text = info.WorkingArea.Y.ToString();
-                _capWTxt.Text = info.WorkingArea.Width.ToString();
-                _capHTxt.Text = info.WorkingArea.Height.ToString();
-            }
-        }
-
-        private bool IsCaptureAreaValid {
-            get {
-                int r;
-                if (!Int32.TryParse(_capXTxt.Text, out r)) {
-                    return false;
-                }
-                if (!Int32.TryParse(_capYTxt.Text, out r)) {
-                    return false;
-                }
-                if (!Int32.TryParse(_capWTxt.Text, out r)) {
-                    return false;
-                }
-                if (!Int32.TryParse(_capHTxt.Text, out r)) {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-        private Rectangle CaptureArea {
-            get {
-                return new Rectangle(
-                    Int32.Parse(_capXTxt.Text),
-                    Int32.Parse(_capYTxt.Text),
-                    Int32.Parse(_capWTxt.Text),
-                    Int32.Parse(_capHTxt.Text));
-            }
-            set {
-                _capXTxt.Text = value.X.ToString();
-                _capYTxt.Text = value.Y.ToString();
-                _capWTxt.Text = value.Width.ToString();
-                _capHTxt.Text = value.Height.ToString();
+                _capXTxt.Text = info.WorkingArea.X.ToString(CultureInfo.InvariantCulture);
+                _capYTxt.Text = info.WorkingArea.Y.ToString(CultureInfo.InvariantCulture);
+                _capWTxt.Text = info.WorkingArea.Width.ToString(CultureInfo.InvariantCulture);
+                _capHTxt.Text = info.WorkingArea.Height.ToString(CultureInfo.InvariantCulture);
             }
         }
     }

@@ -2,15 +2,11 @@
  * the extent permitted by applicable law. You can redistribute it
  * and/or modify it under the terms of the Do What The Fuck You Want
  * To Public License, Version 2, as published by Sam Hocevar. See
- * http://sam.zoy.org/wtfpl/COPYING for more details. */ 
+ * http://sam.zoy.org/wtfpl/COPYING for more details. */
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 // Because of conflict with property name.
@@ -21,8 +17,8 @@ namespace DevCap {
         public const string DefaultFormatString = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
 
         private readonly string _directory;
-        private readonly string _formatString;
         private readonly ImageFormat _format;
+        private readonly string _formatString;
         private Rectangle _bounds;
         private long _number;
 
@@ -34,6 +30,24 @@ namespace DevCap {
 
             if (String.IsNullOrWhiteSpace(formatString)) {
                 _formatString = DefaultFormatString;
+            }
+        }
+
+        public string Directory {
+            get { return _directory; }
+        }
+
+        public ImageFormat Format {
+            get { return _format; }
+        }
+
+        public Rectangle Bounds {
+            get { return _bounds; }
+            set {
+                if (Running) {
+                    throw new Exception("Cannot change the bounds while a capture is in progress.");
+                }
+                _bounds = value;
             }
         }
 
@@ -50,8 +64,10 @@ namespace DevCap {
             using (Graphics g = Graphics.FromImage(buffer)) {
                 g.CopyFromScreen(_bounds.Location, new Point(), _bounds.Size);
 
-                Rectangle cursorBounds = new Rectangle(Point.Subtract(Cursor.Position, _bounds.Size), Cursor.Current.Size);
-                Cursors.Default.Draw(g, cursorBounds);
+                if (Cursor.Current != null) {
+                    Rectangle cursorBounds = new Rectangle(Point.Subtract(Cursor.Position, _bounds.Size), Cursor.Current.Size);
+                    Cursors.Default.Draw(g, cursorBounds);
+                }
             }
 
             buffer.Save(Path.Combine(_directory, CreateFilename()), _format);
@@ -71,24 +87,6 @@ namespace DevCap {
 
         protected override void Run() {
             SaveFrame();
-        }
-
-        public string Directory {
-            get { return _directory; }
-        }
-
-        public ImageFormat Format {
-            get { return _format; }
-        }
-
-        public Rectangle Bounds {
-            get { return _bounds; }
-            set {
-                if (base.Running) {
-                    throw new Exception("Cannot change the bounds while a capture is in progress.");
-                }
-                _bounds = value;
-            }
         }
     }
 }

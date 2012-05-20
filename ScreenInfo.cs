@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace DevCap {
     class ScreenInfo {
+        private readonly Rectangle _bounds;
         private readonly string _name;
         private readonly Rectangle _workingArea;
-        private readonly Rectangle _bounds;
 
         public ScreenInfo(Screen source) {
             _name = source.DeviceName;

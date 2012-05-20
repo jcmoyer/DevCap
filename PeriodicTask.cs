@@ -10,24 +10,42 @@ namespace DevCap {
     /// <summary>
     /// Base class for tasks that run periodically.
     /// </summary>
-    internal abstract class PeriodicTask : IDisposable {
+    abstract class PeriodicTask : IDisposable {
         private readonly Timer _timer;
         private bool _disposed;
         private TimeSpan _interval;
         private bool _running;
 
         protected PeriodicTask() {
-            _timer = new Timer((state) => this.Run());
+            _timer = new Timer(state => Run());
             _interval = Duration.Infinite;
         }
 
-        ~PeriodicTask() {
-            this.Dispose(false);
+        public TimeSpan Interval {
+            get { return _interval; }
+            set {
+                _interval = value;
+                if (_running) {
+                    Start();
+                }
+            }
         }
 
+        public bool Running {
+            get { return _running; }
+        }
+
+        #region IDisposable Members
+
         public void Dispose() {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        ~PeriodicTask() {
+            Dispose(false);
         }
 
         protected virtual void Dispose(bool disposing) {
@@ -59,19 +77,5 @@ namespace DevCap {
         }
 
         protected abstract void Run();
-
-        public TimeSpan Interval {
-            get { return _interval; }
-            set {
-                _interval = value;
-                if (_running) {
-                    this.Start();
-                }
-            }
-        }
-
-        public bool Running {
-            get { return _running; }
-        }
     }
 }

@@ -4,8 +4,6 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */ 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using DevCap.Properties;
 
