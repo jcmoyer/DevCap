@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 // Because of conflict with property name.
@@ -18,12 +19,14 @@ using DirectoryClass = System.IO.Directory;
 namespace DevCap {
     class ScreenCapturer : PeriodicTask {
         private readonly string _directory;
+        private readonly string _formatString;
         private readonly ImageFormat _format;
         private Rectangle _bounds;
         private long _number;
 
-        public ScreenCapturer(string directory, ImageFormat saveFormat) {
+        public ScreenCapturer(string directory, string formatString, ImageFormat saveFormat) {
             _directory = directory;
+            _formatString = formatString;
             _format = saveFormat;
             _bounds = Screen.PrimaryScreen.Bounds;
         }
@@ -45,11 +48,19 @@ namespace DevCap {
                 Cursors.Default.Draw(g, cursorBounds);
             }
 
-            long thisNumber = Interlocked.Increment(ref _number);
+            buffer.Save(Path.Combine(_directory, CreateFilename()), _format);
+        }
 
-            string filename = String.Format("{0:00000000}.{1}", thisNumber, _format.ToString());
-
-            buffer.Save(Path.Combine(_directory, filename), _format);
+        private string CreateFilename() {
+            var now = DateTime.Now;
+            return _formatString
+                .Replace("$YEAR", now.Year.ToString("D4"))
+                .Replace("$MONTH", now.Month.ToString("D2"))
+                .Replace("$DAY", now.Day.ToString("D2"))
+                .Replace("$HOUR", now.Hour.ToString("D2"))
+                .Replace("$MINUTE", now.Minute.ToString("D2"))
+                .Replace("$SECOND", now.Second.ToString("D2"))
+                .Replace("$NUMBER", Interlocked.Increment(ref _number).ToString("D8")) + "." + _format;
         }
 
         protected override void Run() {

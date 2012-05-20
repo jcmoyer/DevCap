@@ -2,7 +2,7 @@
  * the extent permitted by applicable law. You can redistribute it
  * and/or modify it under the terms of the Do What The Fuck You Want
  * To Public License, Version 2, as published by Sam Hocevar. See
- * http://sam.zoy.org/wtfpl/COPYING for more details. */ 
+ * http://sam.zoy.org/wtfpl/COPYING for more details. */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +26,7 @@ namespace DevCap {
         private void StartBtnClick(object sender, EventArgs e) {
             StopCapture();
             if (_cap == null) {
-                _cap = new ScreenCapturer(_dirTxt.Text, SelectedFormat) {
+                _cap = new ScreenCapturer(_dirTxt.Text, _fmtTxt.Text, SelectedFormat) {
                     Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
                 };
             }
@@ -113,6 +113,19 @@ namespace DevCap {
 
         private void NotifyIcoDoubleClick(object sender, EventArgs e) {
             Show();
+        }
+
+        private void FmtHelpBtnClick(object sender, EventArgs e) {
+            MessageBox.Show(
+@"Format variables:
+
+$YEAR
+$MONTH
+$DAY
+$HOUR
+$MINUTE
+$SECOND
+$NUMBER", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

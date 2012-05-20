@@ -44,9 +44,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this._startBtn = new System.Windows.Forms.Button();
             this._stopBtn = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this._fmtTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this._fmtHelpBtn = new System.Windows.Forms.Button();
             this._folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this._trayMenu.SuspendLayout();
             this._stypeGroup.SuspendLayout();
@@ -162,7 +162,6 @@
             this._bmpRad.Name = "_bmpRad";
             this._bmpRad.Size = new System.Drawing.Size(48, 17);
             this._bmpRad.TabIndex = 2;
-            this._bmpRad.TabStop = true;
             this._bmpRad.Text = "BMP";
             this._bmpRad.UseVisualStyleBackColor = true;
             // 
@@ -173,7 +172,6 @@
             this._pngRad.Name = "_pngRad";
             this._pngRad.Size = new System.Drawing.Size(48, 17);
             this._pngRad.TabIndex = 1;
-            this._pngRad.TabStop = true;
             this._pngRad.Text = "PNG";
             this._pngRad.UseVisualStyleBackColor = true;
             // 
@@ -245,17 +243,15 @@
             this._stopBtn.UseVisualStyleBackColor = true;
             this._stopBtn.Click += new System.EventHandler(this.StopBtnClick);
             // 
-            // textBox2
+            // _fmtTxt
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._fmtTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(127, 158);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(300, 20);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "{0}{1}{2}_{3}{4}{5}";
-            this.textBox2.Visible = false;
+            this._fmtTxt.Location = new System.Drawing.Point(127, 158);
+            this._fmtTxt.Name = "_fmtTxt";
+            this._fmtTxt.Size = new System.Drawing.Size(300, 20);
+            this._fmtTxt.TabIndex = 8;
+            this._fmtTxt.Text = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
             // 
             // label3
             // 
@@ -265,29 +261,27 @@
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Filename format:";
-            this.label3.Visible = false;
             // 
-            // button4
+            // _fmtHelpBtn
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Enabled = false;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Location = new System.Drawing.Point(433, 158);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(25, 20);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "?";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
+            this._fmtHelpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._fmtHelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 158);
+            this._fmtHelpBtn.Name = "_fmtHelpBtn";
+            this._fmtHelpBtn.Size = new System.Drawing.Size(25, 20);
+            this._fmtHelpBtn.TabIndex = 10;
+            this._fmtHelpBtn.Text = "?";
+            this._fmtHelpBtn.UseVisualStyleBackColor = true;
+            this._fmtHelpBtn.Click += new System.EventHandler(this.FmtHelpBtnClick);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(470, 231);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this._fmtHelpBtn);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this._fmtTxt);
             this.Controls.Add(this._stopBtn);
             this.Controls.Add(this._startBtn);
             this.Controls.Add(this.label2);
@@ -322,9 +316,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button _startBtn;
         private System.Windows.Forms.Button _stopBtn;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox _fmtTxt;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button _fmtHelpBtn;
         private System.Windows.Forms.FolderBrowserDialog _folderBrowser;
         private System.Windows.Forms.ContextMenuStrip _trayMenu;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
