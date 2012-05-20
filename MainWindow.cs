@@ -21,6 +21,13 @@ namespace DevCap {
 
         public MainWindow() {
             InitializeComponent();
+
+            foreach (var di in DriveInfo.GetDrives()) {
+                if (di.DriveType == DriveType.Fixed) {
+                    _dirTxt.Text = Path.Combine(di.RootDirectory.FullName, "DevCap");
+                    break;
+                }
+            }
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
