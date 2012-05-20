@@ -126,6 +126,16 @@
             this._intervalNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._intervalNum.Location = new System.Drawing.Point(127, 132);
+            this._intervalNum.Maximum = new decimal(new int[] {
+            86400,
+            0,
+            0,
+            0});
+            this._intervalNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._intervalNum.Name = "_intervalNum";
             this._intervalNum.Size = new System.Drawing.Size(300, 20);
             this._intervalNum.TabIndex = 4;
