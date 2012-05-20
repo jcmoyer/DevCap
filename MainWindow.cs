@@ -28,6 +28,8 @@ namespace DevCap {
                     break;
                 }
             }
+
+            _fmtTxt.Text = ScreenCapturer.DefaultFormatString;
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
@@ -132,7 +134,10 @@ $DAY
 $HOUR
 $MINUTE
 $SECOND
-$NUMBER", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+$NUMBER
+
+If no format string is given, it will default to:
+" + ScreenCapturer.DefaultFormatString, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ExitBtnClick(object sender, EventArgs e) {

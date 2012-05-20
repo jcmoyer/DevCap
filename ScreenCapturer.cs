@@ -18,6 +18,8 @@ using DirectoryClass = System.IO.Directory;
 
 namespace DevCap {
     class ScreenCapturer : PeriodicTask {
+        public const string DefaultFormatString = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
+
         private readonly string _directory;
         private readonly string _formatString;
         private readonly ImageFormat _format;
@@ -29,6 +31,10 @@ namespace DevCap {
             _formatString = formatString;
             _format = saveFormat;
             _bounds = Screen.PrimaryScreen.Bounds;
+
+            if (String.IsNullOrWhiteSpace(formatString)) {
+                _formatString = DefaultFormatString;
+            }
         }
 
         protected override void OnStart() {
