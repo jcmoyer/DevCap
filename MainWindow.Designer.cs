@@ -180,6 +180,7 @@
             // _jpgRad
             // 
             this._jpgRad.AutoSize = true;
+            this._jpgRad.Checked = true;
             this._jpgRad.Location = new System.Drawing.Point(6, 19);
             this._jpgRad.Name = "_jpgRad";
             this._jpgRad.Size = new System.Drawing.Size(45, 17);
