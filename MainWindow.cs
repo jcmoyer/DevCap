@@ -33,7 +33,6 @@ namespace DevCap {
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
-            StopCapture();
             if (_cap == null) {
                 _cap = new ScreenCapturer(_dirTxt.Text, _fmtTxt.Text, SelectedFormat) {
                     Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
@@ -50,6 +49,16 @@ namespace DevCap {
             _stopBtn.Enabled = true;
             stopToolStripMenuItem.Enabled = true;
             startToolStripMenuItem.Enabled = false;
+
+            EnableSettings(false);
+        }
+
+        private void EnableSettings(bool state) {
+            _dirTxt.Enabled = state;
+            _browseBtn.Enabled = state;
+            _stypeGroup.Enabled = state;
+            _intervalNum.Enabled = state;
+            _fmtTxt.Enabled = state;
         }
 
         private void StopBtnClick(object sender, EventArgs e) {
@@ -65,6 +74,7 @@ namespace DevCap {
             _startBtn.Enabled = true;
             stopToolStripMenuItem.Enabled = false;
             startToolStripMenuItem.Enabled = true;
+            EnableSettings(true);
         }
 
         private ImageFormat SelectedFormat {
