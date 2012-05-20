@@ -301,8 +301,9 @@
             // 
             // _capAreaGrp
             // 
-            this._capAreaGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this._capAreaGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._capAreaGrp.Controls.Add(this._capXTxt);
             this._capAreaGrp.Controls.Add(this._includeTaskbarChk);
             this._capAreaGrp.Controls.Add(this.label5);
@@ -403,6 +404,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this._browseBtn);
             this.Controls.Add(this._dirTxt);
+            this.MinimumSize = new System.Drawing.Size(478, 265);
             this.Name = "MainWindow";
             this.Text = "DevCap";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindowFormClosing);
