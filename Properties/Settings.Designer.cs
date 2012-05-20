@@ -82,5 +82,41 @@ namespace DevCap.Properties {
                 this["NotifiedUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CaptureDevice {
+            get {
+                return ((string)(this["CaptureDevice"]));
+            }
+            set {
+                this["CaptureDevice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
+        public global::System.Drawing.Rectangle CaptureArea {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["CaptureArea"]));
+            }
+            set {
+                this["CaptureArea"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeTaskbar {
+            get {
+                return ((bool)(this["IncludeTaskbar"]));
+            }
+            set {
+                this["IncludeTaskbar"] = value;
+            }
+        }
     }
 }

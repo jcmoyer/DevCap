@@ -48,6 +48,36 @@ namespace DevCap {
                     break;
                 }
             }
+
+            PopulateScreens();
+
+            // If a configured screen is provided, try to select it. SelectScreen will
+            // not do anything if the screen does not exist.
+            if (!String.IsNullOrWhiteSpace(Settings.Default.CaptureDevice)) {
+                SelectScreen(Settings.Default.CaptureDevice);
+            }
+
+            _includeTaskbarChk.Checked = Settings.Default.IncludeTaskbar;
+
+            if (Settings.Default.CaptureArea != Rectangle.Empty) {
+                CaptureArea = Settings.Default.CaptureArea;
+            }
+        }
+
+        private void PopulateScreens() {
+            foreach (var screen in Screen.AllScreens) {
+                _screensBox.Items.Add(new ScreenInfo(screen));
+            }
+            _screensBox.SelectedIndex = 0;
+        }
+
+        private void SelectScreen(string name) {
+            foreach (ScreenInfo si in _screensBox.Items) {
+                if (si.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) {
+                    _screensBox.SelectedItem = si;
+                    break;
+                }
+            }
         }
 
         private void SetDefaultDirectory() {
@@ -61,7 +91,12 @@ namespace DevCap {
 
         private void StartBtnClick(object sender, EventArgs e) {
             if (_cap == null) {
-                _cap = new ScreenCapturer(_dirTxt.Text, _fmtTxt.Text, SelectedFormat) {
+                if (!IsCaptureAreaValid) {
+                    MessageBox.Show("The capture area is not valid.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _cap = new ScreenCapturer(_dirTxt.Text, _fmtTxt.Text, SelectedFormat, CaptureArea) {
                     Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
                 };
             }
@@ -86,6 +121,7 @@ namespace DevCap {
             _stypeGroup.Enabled = state;
             _intervalNum.Enabled = state;
             _fmtTxt.Enabled = state;
+            _capAreaGrp.Enabled = state;
         }
 
         private void StopBtnClick(object sender, EventArgs e) {
@@ -160,6 +196,14 @@ namespace DevCap {
             Settings.Default.Format = Format;
             Settings.Default.Interval = Interval;
             Settings.Default.ScreenshotType = SelectedFormat.ToString();
+            ScreenInfo si = _screensBox.SelectedItem as ScreenInfo;
+            if (si != null) {
+                Settings.Default.CaptureDevice = si.Name;
+            }
+            if (IsCaptureAreaValid) {
+                Settings.Default.CaptureArea = CaptureArea;
+            }
+            Settings.Default.IncludeTaskbar = _includeTaskbarChk.Checked;
         }
 
         private void MainWindowFormClosing(object sender, FormClosingEventArgs e) {
@@ -199,6 +243,73 @@ If no format string is given, it will default to:
 
         private void ExitBtnClick(object sender, EventArgs e) {
             Application.Exit();
+        }
+
+        private void ScreensBoxSelectedValueChanged(object sender, EventArgs e) {
+            SetCaptureAreaValues();
+        }
+
+        private void IncludeTaskbarChkCheckedChanged(object sender, EventArgs e) {
+            SetCaptureHeightValue();
+        }
+
+        private void SetCaptureHeightValue() {
+            ScreenInfo info = (ScreenInfo)_screensBox.SelectedItem;
+            if (_includeTaskbarChk.Checked) {
+                _capHTxt.Text = info.Bounds.Height.ToString();
+            } else {
+                _capHTxt.Text = info.WorkingArea.Height.ToString();
+            }
+        }
+
+        private void SetCaptureAreaValues() {
+            ScreenInfo info = (ScreenInfo)_screensBox.SelectedItem;
+            if (_includeTaskbarChk.Checked) {
+                _capXTxt.Text = info.Bounds.X.ToString();
+                _capYTxt.Text = info.Bounds.Y.ToString();
+                _capWTxt.Text = info.Bounds.Width.ToString();
+                _capHTxt.Text = info.Bounds.Height.ToString();
+            } else {
+                _capXTxt.Text = info.WorkingArea.X.ToString();
+                _capYTxt.Text = info.WorkingArea.Y.ToString();
+                _capWTxt.Text = info.WorkingArea.Width.ToString();
+                _capHTxt.Text = info.WorkingArea.Height.ToString();
+            }
+        }
+
+        private bool IsCaptureAreaValid {
+            get {
+                int r;
+                if (!Int32.TryParse(_capXTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capYTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capWTxt.Text, out r)) {
+                    return false;
+                }
+                if (!Int32.TryParse(_capHTxt.Text, out r)) {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        private Rectangle CaptureArea {
+            get {
+                return new Rectangle(
+                    Int32.Parse(_capXTxt.Text),
+                    Int32.Parse(_capYTxt.Text),
+                    Int32.Parse(_capWTxt.Text),
+                    Int32.Parse(_capHTxt.Text));
+            }
+            set {
+                _capXTxt.Text = value.X.ToString();
+                _capYTxt.Text = value.Y.ToString();
+                _capWTxt.Text = value.Width.ToString();
+                _capHTxt.Text = value.Height.ToString();
+            }
         }
     }
 }

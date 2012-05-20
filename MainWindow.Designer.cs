@@ -49,9 +49,19 @@
             this._fmtHelpBtn = new System.Windows.Forms.Button();
             this._folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this._exitBtn = new System.Windows.Forms.Button();
+            this._capAreaGrp = new System.Windows.Forms.GroupBox();
+            this._includeTaskbarChk = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this._capHTxt = new System.Windows.Forms.TextBox();
+            this._capWTxt = new System.Windows.Forms.TextBox();
+            this._capYTxt = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this._screensBox = new System.Windows.Forms.ComboBox();
+            this._capXTxt = new System.Windows.Forms.TextBox();
             this._trayMenu.SuspendLayout();
             this._stypeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._intervalNum)).BeginInit();
+            this._capAreaGrp.SuspendLayout();
             this.SuspendLayout();
             // 
             // _notifyIco
@@ -144,14 +154,14 @@
             // 
             // _stypeGroup
             // 
-            this._stypeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._stypeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this._stypeGroup.Controls.Add(this._bmpRad);
             this._stypeGroup.Controls.Add(this._pngRad);
             this._stypeGroup.Controls.Add(this._jpgRad);
             this._stypeGroup.Location = new System.Drawing.Point(15, 38);
             this._stypeGroup.Name = "_stypeGroup";
-            this._stypeGroup.Size = new System.Drawing.Size(412, 88);
+            this._stypeGroup.Size = new System.Drawing.Size(106, 95);
             this._stypeGroup.TabIndex = 3;
             this._stypeGroup.TabStop = false;
             this._stypeGroup.Text = "Screenshot Type";
@@ -191,9 +201,9 @@
             // 
             // _intervalNum
             // 
-            this._intervalNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._intervalNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._intervalNum.Location = new System.Drawing.Point(127, 132);
+            this._intervalNum.Location = new System.Drawing.Point(127, 139);
             this._intervalNum.Maximum = new decimal(new int[] {
             86400,
             0,
@@ -206,7 +216,7 @@
             0});
             this._intervalNum.Name = "_intervalNum";
             this._intervalNum.Size = new System.Drawing.Size(300, 20);
-            this._intervalNum.TabIndex = 5;
+            this._intervalNum.TabIndex = 6;
             this._intervalNum.Value = new decimal(new int[] {
             30,
             0,
@@ -215,20 +225,21 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 134);
+            this.label2.Location = new System.Drawing.Point(12, 141);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 5;
             this.label2.Text = "Interval (seconds):";
             // 
             // _startBtn
             // 
             this._startBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._startBtn.Location = new System.Drawing.Point(271, 196);
+            this._startBtn.Location = new System.Drawing.Point(271, 203);
             this._startBtn.Name = "_startBtn";
             this._startBtn.Size = new System.Drawing.Size(75, 23);
-            this._startBtn.TabIndex = 10;
+            this._startBtn.TabIndex = 11;
             this._startBtn.Text = "Start";
             this._startBtn.UseVisualStyleBackColor = true;
             this._startBtn.Click += new System.EventHandler(this.StartBtnClick);
@@ -237,41 +248,42 @@
             // 
             this._stopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._stopBtn.Enabled = false;
-            this._stopBtn.Location = new System.Drawing.Point(352, 196);
+            this._stopBtn.Location = new System.Drawing.Point(352, 203);
             this._stopBtn.Name = "_stopBtn";
             this._stopBtn.Size = new System.Drawing.Size(75, 23);
-            this._stopBtn.TabIndex = 11;
+            this._stopBtn.TabIndex = 12;
             this._stopBtn.Text = "Stop";
             this._stopBtn.UseVisualStyleBackColor = true;
             this._stopBtn.Click += new System.EventHandler(this.StopBtnClick);
             // 
             // _fmtTxt
             // 
-            this._fmtTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this._fmtTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._fmtTxt.Location = new System.Drawing.Point(127, 158);
+            this._fmtTxt.Location = new System.Drawing.Point(127, 165);
             this._fmtTxt.Name = "_fmtTxt";
             this._fmtTxt.Size = new System.Drawing.Size(300, 20);
-            this._fmtTxt.TabIndex = 7;
+            this._fmtTxt.TabIndex = 8;
             this._fmtTxt.Text = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 161);
+            this.label3.Location = new System.Drawing.Point(12, 168);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 7;
             this.label3.Text = "Filename format:";
             // 
             // _fmtHelpBtn
             // 
-            this._fmtHelpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._fmtHelpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._fmtHelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 158);
+            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 165);
             this._fmtHelpBtn.Name = "_fmtHelpBtn";
             this._fmtHelpBtn.Size = new System.Drawing.Size(25, 20);
-            this._fmtHelpBtn.TabIndex = 8;
+            this._fmtHelpBtn.TabIndex = 9;
             this._fmtHelpBtn.Text = "?";
             this._fmtHelpBtn.UseVisualStyleBackColor = true;
             this._fmtHelpBtn.Click += new System.EventHandler(this.FmtHelpBtnClick);
@@ -279,19 +291,106 @@
             // _exitBtn
             // 
             this._exitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this._exitBtn.Location = new System.Drawing.Point(12, 196);
+            this._exitBtn.Location = new System.Drawing.Point(12, 203);
             this._exitBtn.Name = "_exitBtn";
             this._exitBtn.Size = new System.Drawing.Size(75, 23);
-            this._exitBtn.TabIndex = 9;
+            this._exitBtn.TabIndex = 10;
             this._exitBtn.Text = "Exit";
             this._exitBtn.UseVisualStyleBackColor = true;
             this._exitBtn.Click += new System.EventHandler(this.ExitBtnClick);
+            // 
+            // _capAreaGrp
+            // 
+            this._capAreaGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this._capAreaGrp.Controls.Add(this._capXTxt);
+            this._capAreaGrp.Controls.Add(this._includeTaskbarChk);
+            this._capAreaGrp.Controls.Add(this.label5);
+            this._capAreaGrp.Controls.Add(this._capHTxt);
+            this._capAreaGrp.Controls.Add(this._capWTxt);
+            this._capAreaGrp.Controls.Add(this._capYTxt);
+            this._capAreaGrp.Controls.Add(this.label4);
+            this._capAreaGrp.Controls.Add(this._screensBox);
+            this._capAreaGrp.Location = new System.Drawing.Point(127, 38);
+            this._capAreaGrp.Name = "_capAreaGrp";
+            this._capAreaGrp.Size = new System.Drawing.Size(300, 95);
+            this._capAreaGrp.TabIndex = 4;
+            this._capAreaGrp.TabStop = false;
+            this._capAreaGrp.Text = "Capture Area";
+            // 
+            // _includeTaskbarChk
+            // 
+            this._includeTaskbarChk.AutoSize = true;
+            this._includeTaskbarChk.Location = new System.Drawing.Point(56, 72);
+            this._includeTaskbarChk.Name = "_includeTaskbarChk";
+            this._includeTaskbarChk.Size = new System.Drawing.Size(99, 17);
+            this._includeTaskbarChk.TabIndex = 7;
+            this._includeTaskbarChk.Text = "Include taskbar";
+            this._includeTaskbarChk.UseVisualStyleBackColor = true;
+            this._includeTaskbarChk.CheckedChanged += new System.EventHandler(this.IncludeTaskbarChkCheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 49);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "XYWH:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // _capHTxt
+            // 
+            this._capHTxt.Location = new System.Drawing.Point(239, 46);
+            this._capHTxt.Name = "_capHTxt";
+            this._capHTxt.Size = new System.Drawing.Size(55, 20);
+            this._capHTxt.TabIndex = 6;
+            // 
+            // _capWTxt
+            // 
+            this._capWTxt.Location = new System.Drawing.Point(178, 46);
+            this._capWTxt.Name = "_capWTxt";
+            this._capWTxt.Size = new System.Drawing.Size(55, 20);
+            this._capWTxt.TabIndex = 5;
+            // 
+            // _capYTxt
+            // 
+            this._capYTxt.Location = new System.Drawing.Point(117, 46);
+            this._capYTxt.Name = "_capYTxt";
+            this._capYTxt.Size = new System.Drawing.Size(55, 20);
+            this._capYTxt.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Screen:";
+            // 
+            // _screensBox
+            // 
+            this._screensBox.FormattingEnabled = true;
+            this._screensBox.Location = new System.Drawing.Point(56, 19);
+            this._screensBox.Name = "_screensBox";
+            this._screensBox.Size = new System.Drawing.Size(238, 21);
+            this._screensBox.TabIndex = 1;
+            this._screensBox.SelectedValueChanged += new System.EventHandler(this.ScreensBoxSelectedValueChanged);
+            // 
+            // _capXTxt
+            // 
+            this._capXTxt.Location = new System.Drawing.Point(56, 46);
+            this._capXTxt.Name = "_capXTxt";
+            this._capXTxt.Size = new System.Drawing.Size(55, 20);
+            this._capXTxt.TabIndex = 3;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 231);
+            this.ClientSize = new System.Drawing.Size(470, 238);
+            this.Controls.Add(this._capAreaGrp);
             this.Controls.Add(this._exitBtn);
             this.Controls.Add(this._fmtHelpBtn);
             this.Controls.Add(this.label3);
@@ -311,6 +410,8 @@
             this._stypeGroup.ResumeLayout(false);
             this._stypeGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._intervalNum)).EndInit();
+            this._capAreaGrp.ResumeLayout(false);
+            this._capAreaGrp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,6 +443,15 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button _exitBtn;
+        private System.Windows.Forms.GroupBox _capAreaGrp;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox _screensBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox _capHTxt;
+        private System.Windows.Forms.TextBox _capWTxt;
+        private System.Windows.Forms.TextBox _capYTxt;
+        private System.Windows.Forms.CheckBox _includeTaskbarChk;
+        private System.Windows.Forms.TextBox _capXTxt;
     }
 }
 

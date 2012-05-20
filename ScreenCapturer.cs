@@ -26,11 +26,11 @@ namespace DevCap {
         private Rectangle _bounds;
         private long _number;
 
-        public ScreenCapturer(string directory, string formatString, ImageFormat saveFormat) {
+        public ScreenCapturer(string directory, string formatString, ImageFormat saveFormat, Rectangle bounds) {
             _directory = directory;
             _formatString = formatString;
             _format = saveFormat;
-            _bounds = Screen.PrimaryScreen.Bounds;
+            _bounds = bounds;
 
             if (String.IsNullOrWhiteSpace(formatString)) {
                 _formatString = DefaultFormatString;
