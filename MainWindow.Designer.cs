@@ -119,7 +119,7 @@
             this._dirTxt.Location = new System.Drawing.Point(127, 12);
             this._dirTxt.Name = "_dirTxt";
             this._dirTxt.Size = new System.Drawing.Size(300, 20);
-            this._dirTxt.TabIndex = 0;
+            this._dirTxt.TabIndex = 1;
             // 
             // _browseBtn
             // 
@@ -128,7 +128,7 @@
             this._browseBtn.Location = new System.Drawing.Point(433, 12);
             this._browseBtn.Name = "_browseBtn";
             this._browseBtn.Size = new System.Drawing.Size(25, 20);
-            this._browseBtn.TabIndex = 1;
+            this._browseBtn.TabIndex = 2;
             this._browseBtn.Text = "...";
             this._browseBtn.UseVisualStyleBackColor = true;
             this._browseBtn.Click += new System.EventHandler(this.BrowseBtnClick);
@@ -139,7 +139,7 @@
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Screenshot directory:";
             // 
             // _stypeGroup
@@ -205,7 +205,7 @@
             0});
             this._intervalNum.Name = "_intervalNum";
             this._intervalNum.Size = new System.Drawing.Size(300, 20);
-            this._intervalNum.TabIndex = 4;
+            this._intervalNum.TabIndex = 5;
             this._intervalNum.Value = new decimal(new int[] {
             30,
             0,
@@ -218,7 +218,7 @@
             this.label2.Location = new System.Drawing.Point(12, 134);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Interval (seconds):";
             // 
             // _startBtn
@@ -227,7 +227,7 @@
             this._startBtn.Location = new System.Drawing.Point(271, 196);
             this._startBtn.Name = "_startBtn";
             this._startBtn.Size = new System.Drawing.Size(75, 23);
-            this._startBtn.TabIndex = 6;
+            this._startBtn.TabIndex = 10;
             this._startBtn.Text = "Start";
             this._startBtn.UseVisualStyleBackColor = true;
             this._startBtn.Click += new System.EventHandler(this.StartBtnClick);
@@ -239,7 +239,7 @@
             this._stopBtn.Location = new System.Drawing.Point(352, 196);
             this._stopBtn.Name = "_stopBtn";
             this._stopBtn.Size = new System.Drawing.Size(75, 23);
-            this._stopBtn.TabIndex = 7;
+            this._stopBtn.TabIndex = 11;
             this._stopBtn.Text = "Stop";
             this._stopBtn.UseVisualStyleBackColor = true;
             this._stopBtn.Click += new System.EventHandler(this.StopBtnClick);
@@ -251,7 +251,7 @@
             this._fmtTxt.Location = new System.Drawing.Point(127, 158);
             this._fmtTxt.Name = "_fmtTxt";
             this._fmtTxt.Size = new System.Drawing.Size(300, 20);
-            this._fmtTxt.TabIndex = 8;
+            this._fmtTxt.TabIndex = 7;
             this._fmtTxt.Text = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
             // 
             // label3
@@ -260,7 +260,7 @@
             this.label3.Location = new System.Drawing.Point(12, 161);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 9;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Filename format:";
             // 
             // _fmtHelpBtn
@@ -270,17 +270,17 @@
             this._fmtHelpBtn.Location = new System.Drawing.Point(433, 158);
             this._fmtHelpBtn.Name = "_fmtHelpBtn";
             this._fmtHelpBtn.Size = new System.Drawing.Size(25, 20);
-            this._fmtHelpBtn.TabIndex = 10;
+            this._fmtHelpBtn.TabIndex = 8;
             this._fmtHelpBtn.Text = "?";
             this._fmtHelpBtn.UseVisualStyleBackColor = true;
             this._fmtHelpBtn.Click += new System.EventHandler(this.FmtHelpBtnClick);
             // 
             // _exitBtn
             // 
-            this._exitBtn.Location = new System.Drawing.Point(15, 196);
+            this._exitBtn.Location = new System.Drawing.Point(12, 196);
             this._exitBtn.Name = "_exitBtn";
             this._exitBtn.Size = new System.Drawing.Size(75, 23);
-            this._exitBtn.TabIndex = 11;
+            this._exitBtn.TabIndex = 9;
             this._exitBtn.Text = "Exit";
             this._exitBtn.UseVisualStyleBackColor = true;
             this._exitBtn.Click += new System.EventHandler(this.ExitBtnClick);
