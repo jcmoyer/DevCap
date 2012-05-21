@@ -15,104 +15,10 @@ using DevCap.SevenZip.Compress.LZMA;
 using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
 namespace DevCap.Imaging {
-    class ScreenshotWork {
-        private readonly IImageWriter _writer;
-        private readonly Image _toWrite;
-
-        public ScreenshotWork(IImageWriter writer, Image toWrite) {
-            _writer = writer;
-            _toWrite = toWrite;
-        }
-
-        public IImageWriter Writer {
-            get { return _writer; }
-        }
-
-        public Image ToWrite {
-            get { return _toWrite; }
-        }
-
-        public void Write(Stream dest) {
-            _writer.Write(_toWrite, dest);
-        }
-    }
-
-    class ScreenshotWorker {
-        private readonly object _locker = new object();
-        private readonly Thread _thread;
-        private readonly Queue<ScreenshotWork> _itemQ = new Queue<ScreenshotWork>();
-        private readonly LzmaEncoder _encoder = new LzmaEncoder();
-        private readonly string _filename;
-        private FileStream _fs;
-
-        public ScreenshotWorker(string filename) {
-            _filename = filename;
-            _thread = new Thread(Consume);
-        }
-
-        public void Enqueue(ScreenshotWork item) {
-            lock (_locker) {
-                _itemQ.Enqueue(item);
-                Monitor.Pulse(_locker);
-            }
-        }
-
-        public void Start() {
-            if (_fs != null) {
-                _fs.Close();
-                _fs = null;
-            }
-            _fs = File.OpenWrite(_filename);
-
-            _thread.Start();
-        }
-
-        public void Stop(bool wait) {
-            Enqueue(null);
-            if (wait) {
-                _thread.Join();
-            }
-            if (_fs != null) {
-                _fs.Close();
-                _fs = null;
-            }
-        }
-
-        private void Consume() {
-            using (MemoryStream buffer = new MemoryStream()) {
-                while (true) {
-                    ScreenshotWork item;
-                    lock (_locker) {
-                        while (_itemQ.Count == 0) Monitor.Wait(_locker);
-                        item = _itemQ.Dequeue();
-                    }
-                    if (item == null) return;
-
-                    item.Write(buffer);
-                    buffer.Seek(0, SeekOrigin.Begin);
-                    long inSize;
-                    long outSize;
-                    bool finished = false;
-
-                    BinaryWriter writer = new BinaryWriter(buffer);
-                    writer.Write(0L);
-
-                    while (!finished) {
-                        _encoder.CodeOneBlock(out inSize, out outSize, out finished);
-                    }
-
-                    buffer.Seek(0, SeekOrigin.Begin);
-                    buffer.SetLength(0);
-                }
-            }
-        }
-    }
-
     class ScreenCapturer : PeriodicTask {
         public const string DefaultFormatString = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
 
         private readonly ScreenCapturerParameters _params;
-        private readonly ScreenshotWorker _worker;
 
         private readonly MemoryStream _compressionStream = new MemoryStream();
         private readonly LzmaEncoder _encoder = new LzmaEncoder();
@@ -121,7 +27,6 @@ namespace DevCap.Imaging {
 
         public ScreenCapturer(ScreenCapturerParameters param) {
             _params = param;
-            //_worker = new ScreenshotWorker(CreateFilename());
         }
 
         protected override void OnStart() {
@@ -129,12 +34,6 @@ namespace DevCap.Imaging {
                 Directory.CreateDirectory(_params.Directory);
             }
             Interlocked.Exchange(ref _number, 0);
-
-            //if (_params.Compress) _worker.Start();
-        }
-
-        protected override void OnStop() {
-            //if (_params.Compress) _worker.Stop(true);
         }
 
         public static Image Capture(Rectangle bounds) {
@@ -179,7 +78,7 @@ namespace DevCap.Imaging {
                     WriteCompressedFile(screen);
                 } else {
                     WriteFile(screen);
-                }   
+                }
             }
         }
 
