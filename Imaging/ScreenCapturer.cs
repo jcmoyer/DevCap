@@ -92,6 +92,8 @@ namespace DevCap.Imaging {
             _compressionStream.Seek(0, SeekOrigin.Begin);
             // LZMA encode from memory to file
             using (var stream = File.OpenWrite(CreateFilename())) {
+                _encoder.WriteCoderProperties(stream);
+                stream.Write(BitConverter.GetBytes(_compressionStream.Length), 0, 8);
                 _encoder.Code(_compressionStream, stream, -1, -1, null);
             }
             // Flip stream
