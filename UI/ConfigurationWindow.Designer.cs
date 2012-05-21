@@ -1,4 +1,4 @@
-﻿namespace DevCap {
+﻿namespace DevCap.UI {
     partial class ConfigurationWindow {
         /// <summary>
         /// Required designer variable.

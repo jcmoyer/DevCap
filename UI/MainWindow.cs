@@ -3,6 +3,7 @@
  * and/or modify it under the terms of the Do What The Fuck You Want
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ using System.Windows.Forms;
 using DevCap.Imaging;
 using DevCap.Properties;
 
-namespace DevCap {
+namespace DevCap.UI {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
         private List<RadioButton> _formatRads = new List<RadioButton>();

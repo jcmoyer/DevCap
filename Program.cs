@@ -6,6 +6,7 @@
 using System;
 using System.Windows.Forms;
 using DevCap.Properties;
+using DevCap.UI;
 
 namespace DevCap {
     static class Program {
