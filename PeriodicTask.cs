@@ -65,9 +65,9 @@ namespace DevCap {
         }
 
         public void Stop() {
-            OnStop();
             _timer.Change(Duration.Infinite, Duration.Infinite);
             _running = false;
+            OnStop();
         }
 
         protected virtual void OnStart() {

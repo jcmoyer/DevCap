@@ -17,11 +17,10 @@ using DevCap.Properties;
 namespace DevCap.UI {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
-        private List<RadioButton> _formatRads = new List<RadioButton>();
+        private readonly List<RadioButton> _formatRads = new List<RadioButton>();
 
         public MainWindow() {
             InitializeComponent();
-            PopulateSettings();
 
             _jpgRad.Tag = new JpegWriter();
             _pngRad.Tag = new PngWriter();
@@ -29,6 +28,8 @@ namespace DevCap.UI {
             foreach (Control c in _stypeGroup.Controls) {
                 if (c is RadioButton && c.Tag is IImageWriter) _formatRads.Add((RadioButton)c);
             }
+
+            PopulateSettings();
         }
 
         private ImageFormat SelectedFormat {
@@ -135,6 +136,8 @@ namespace DevCap.UI {
             if (Settings.Default.CaptureArea != Rectangle.Empty) {
                 CaptureArea = Settings.Default.CaptureArea;
             }
+
+            _compress.Checked = Settings.Default.Compress;
         }
 
         private void PopulateScreens() {
@@ -178,7 +181,7 @@ namespace DevCap.UI {
                 return null;
             }
 
-            return new ScreenCapturerParameters(_dirTxt.Text, _fmtTxt.Text, CaptureArea, writer);
+            return new ScreenCapturerParameters(_dirTxt.Text, _fmtTxt.Text, CaptureArea, writer, _compress.Checked);
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
@@ -266,6 +269,8 @@ namespace DevCap.UI {
             Settings.Default.Format = Format;
             Settings.Default.Interval = Interval;
             Settings.Default.ScreenshotType = SelectedFormat.ToString();
+            Settings.Default.Compress = _compress.Checked;
+
             ScreenInfo si = _screensBox.SelectedItem as ScreenInfo;
             if (si != null) {
                 Settings.Default.CaptureDevice = si.Name;
@@ -360,6 +365,12 @@ If no format string is given, it will default to:
             ConfigurationWindow config = new ConfigurationWindow();
             config.SelectedObject = SelectedWriter;
             config.ShowDialog();
+        }
+
+        private void TypeRadioCheckedChanged(object sender, EventArgs e) {
+            RadioButton r = (RadioButton)sender;
+            // Make settings button follow the selected radio button
+            _settingsBtn.Location = new Point(_settingsBtn.Location.X, r.Location.Y - 3);
         }
     }
 }
