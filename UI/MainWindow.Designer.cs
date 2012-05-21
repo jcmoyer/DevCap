@@ -469,7 +469,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this._browseBtn);
             this.Controls.Add(this._dirTxt);
-            this.MinimumSize = new System.Drawing.Size(478, 265);
+            this.MinimumSize = new System.Drawing.Size(478, 294);
             this.Name = "MainWindow";
             this.Text = "DevCap";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindowFormClosing);
