@@ -21,7 +21,6 @@ namespace DevCap.UI {
 
         public MainWindow() {
             InitializeComponent();
-            PopulateSettings();
 
             _jpgRad.Tag = new JpegWriter();
             _pngRad.Tag = new PngWriter();
@@ -29,6 +28,8 @@ namespace DevCap.UI {
             foreach (Control c in _stypeGroup.Controls) {
                 if (c is RadioButton && c.Tag is IImageWriter) _formatRads.Add((RadioButton)c);
             }
+
+            PopulateSettings();
         }
 
         private ImageFormat SelectedFormat {
@@ -364,6 +365,12 @@ If no format string is given, it will default to:
             ConfigurationWindow config = new ConfigurationWindow();
             config.SelectedObject = SelectedWriter;
             config.ShowDialog();
+        }
+
+        private void TypeRadioCheckedChanged(object sender, EventArgs e) {
+            RadioButton r = (RadioButton)sender;
+            // Make settings button follow the selected radio button
+            _settingsBtn.Location = new Point(_settingsBtn.Location.X, r.Location.Y - 3);
         }
     }
 }
