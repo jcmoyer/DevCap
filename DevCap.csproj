@@ -83,7 +83,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Imaging\ScreenCapturer.cs" />
-    <Compile Include="ScreenInfo.cs" />
+    <Compile Include="Imaging\ScreenInfo.cs" />
     <Compile Include="Utilities\Lzma.cs" />
     <Compile Include="Utilities\Switch.cs" />
     <Compile Include="Utilities\TaskQueue.cs" />

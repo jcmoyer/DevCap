@@ -3,10 +3,11 @@
  * and/or modify it under the terms of the Do What The Fuck You Want
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
+
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DevCap {
+namespace DevCap.Imaging {
     class ScreenInfo {
         private readonly Rectangle _bounds;
         private readonly string _name;
