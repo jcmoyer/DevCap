@@ -5,13 +5,11 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using DevCap.SevenZip.Compress.LZMA;
 using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
 namespace DevCap.Imaging {
@@ -64,7 +62,7 @@ namespace DevCap.Imaging {
                 .Replace("$NUMBER", Interlocked.Increment(ref _number).ToString("D8"));
 
             if (_params.Compress) {
-                filename += ".lzma";
+                filename += "." + _params.Writer.Extension + ".lzma";
             } else {
                 filename += "." + _params.Writer.Extension;
             }
