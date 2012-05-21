@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using DevCap.Imaging;
 using DevCap.Properties;
 
 namespace DevCap {
@@ -18,6 +19,10 @@ namespace DevCap {
         public MainWindow() {
             InitializeComponent();
             PopulateSettings();
+
+            _jpgRad.Tag = new JpegWriter();
+            _pngRad.Tag = new PngWriter();
+            _bmpRad.Tag = new BmpWriter();
         }
 
         private ImageFormat SelectedFormat {
@@ -156,6 +161,20 @@ namespace DevCap {
             }
         }
 
+        private ScreenCapturerParameters CreateCaptureParams() {
+            IImageWriter writer = null;
+
+            foreach (RadioButton rad in _stypeGroup.Controls) {
+                if (rad.Checked) writer = (IImageWriter)rad.Tag;
+            }
+
+            if (writer == null) {
+                return null;
+            }
+
+            return new ScreenCapturerParameters(_dirTxt.Text, _fmtTxt.Text, CaptureArea, writer);
+        }
+
         private void StartBtnClick(object sender, EventArgs e) {
             if (_cap == null) {
                 if (!IsCaptureAreaValid) {
@@ -163,9 +182,15 @@ namespace DevCap {
                     return;
                 }
 
-                _cap = new ScreenCapturer(_dirTxt.Text, _fmtTxt.Text, SelectedFormat, CaptureArea) {
-                    Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
-                };
+                ScreenCapturerParameters param = CreateCaptureParams();
+                if (param != null) {
+                    _cap = new ScreenCapturer(param) {
+                        Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
+                    };
+                } else {
+                    MessageBox.Show("You must select an image format.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             try {
                 _cap.Start();

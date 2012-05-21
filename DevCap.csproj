@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Duration.cs" />
+    <Compile Include="Imaging\BmpWriter.cs" />
+    <Compile Include="Imaging\IImageWriter.cs" />
+    <Compile Include="Imaging\JpegWriter.cs" />
+    <Compile Include="Imaging\PngWriter.cs" />
+    <Compile Include="Imaging\ScreenCapturerParameters.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,7 +61,7 @@
     <Compile Include="PeriodicTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenCapturer.cs" />
+    <Compile Include="Imaging\ScreenCapturer.cs" />
     <Compile Include="ScreenInfo.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

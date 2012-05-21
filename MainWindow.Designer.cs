@@ -50,6 +50,7 @@
             this._folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this._exitBtn = new System.Windows.Forms.Button();
             this._capAreaGrp = new System.Windows.Forms.GroupBox();
+            this._capXTxt = new System.Windows.Forms.TextBox();
             this._includeTaskbarChk = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this._capHTxt = new System.Windows.Forms.TextBox();
@@ -57,7 +58,6 @@
             this._capYTxt = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this._screensBox = new System.Windows.Forms.ComboBox();
-            this._capXTxt = new System.Windows.Forms.TextBox();
             this._trayMenu.SuspendLayout();
             this._stypeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._intervalNum)).BeginInit();
@@ -319,6 +319,13 @@
             this._capAreaGrp.TabStop = false;
             this._capAreaGrp.Text = "Capture Area";
             // 
+            // _capXTxt
+            // 
+            this._capXTxt.Location = new System.Drawing.Point(56, 46);
+            this._capXTxt.Name = "_capXTxt";
+            this._capXTxt.Size = new System.Drawing.Size(55, 20);
+            this._capXTxt.TabIndex = 3;
+            // 
             // _includeTaskbarChk
             // 
             this._includeTaskbarChk.AutoSize = true;
@@ -378,13 +385,6 @@
             this._screensBox.Size = new System.Drawing.Size(238, 21);
             this._screensBox.TabIndex = 1;
             this._screensBox.SelectedValueChanged += new System.EventHandler(this.ScreensBoxSelectedValueChanged);
-            // 
-            // _capXTxt
-            // 
-            this._capXTxt.Location = new System.Drawing.Point(56, 46);
-            this._capXTxt.Name = "_capXTxt";
-            this._capXTxt.Size = new System.Drawing.Size(55, 20);
-            this._capXTxt.TabIndex = 3;
             // 
             // MainWindow
             // 
