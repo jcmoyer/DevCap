@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using DevCap.Timing;
 using DevCap.Utilities;
 using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
