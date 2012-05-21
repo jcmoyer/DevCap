@@ -4,6 +4,7 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -15,6 +16,7 @@ using DevCap.Properties;
 namespace DevCap {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
+        private List<RadioButton> _formatRads = new List<RadioButton>();
 
         public MainWindow() {
             InitializeComponent();
@@ -23,6 +25,9 @@ namespace DevCap {
             _jpgRad.Tag = new JpegWriter();
             _pngRad.Tag = new PngWriter();
             _bmpRad.Tag = new BmpWriter();
+            foreach (Control c in _stypeGroup.Controls) {
+                if (c is RadioButton && c.Tag is IImageWriter) _formatRads.Add((RadioButton)c);
+            }
         }
 
         private ImageFormat SelectedFormat {
@@ -109,7 +114,7 @@ namespace DevCap {
             }
             _intervalNum.Value = (decimal)Settings.Default.Interval;
 
-            foreach (RadioButton rad in _stypeGroup.Controls) {
+            foreach (RadioButton rad in _formatRads) {
                 if (rad.Text.Equals(Settings.Default.ScreenshotType, StringComparison.OrdinalIgnoreCase)) {
                     rad.Checked = true;
                     break;
@@ -164,7 +169,7 @@ namespace DevCap {
         private ScreenCapturerParameters CreateCaptureParams() {
             IImageWriter writer = null;
 
-            foreach (RadioButton rad in _stypeGroup.Controls) {
+            foreach (RadioButton rad in _formatRads) {
                 if (rad.Checked) writer = (IImageWriter)rad.Tag;
             }
 
@@ -339,6 +344,21 @@ If no format string is given, it will default to:
                 _capWTxt.Text = info.WorkingArea.Width.ToString(CultureInfo.InvariantCulture);
                 _capHTxt.Text = info.WorkingArea.Height.ToString(CultureInfo.InvariantCulture);
             }
+        }
+
+        private IImageWriter SelectedWriter {
+            get {
+                foreach (var rad in _formatRads) {
+                    if (rad.Checked) return (IImageWriter)rad.Tag;
+                }
+                return null;
+            }
+        }
+
+        private void SettingsButtonClick(object sender, EventArgs e) {
+            ConfigurationWindow config = new ConfigurationWindow();
+            config.SelectedObject = SelectedWriter;
+            config.ShowDialog();
         }
     }
 }

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this._stypeGroup = new System.Windows.Forms.GroupBox();
             this._bmpRad = new System.Windows.Forms.RadioButton();
+            this._settingsBtn = new System.Windows.Forms.Button();
             this._pngRad = new System.Windows.Forms.RadioButton();
             this._jpgRad = new System.Windows.Forms.RadioButton();
             this._intervalNum = new System.Windows.Forms.NumericUpDown();
@@ -50,6 +51,9 @@
             this._folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this._exitBtn = new System.Windows.Forms.Button();
             this._capAreaGrp = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this._capXTxt = new System.Windows.Forms.TextBox();
             this._includeTaskbarChk = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -154,14 +158,16 @@
             // 
             // _stypeGroup
             // 
-            this._stypeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this._stypeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._stypeGroup.Controls.Add(this._bmpRad);
+            this._stypeGroup.Controls.Add(this._settingsBtn);
             this._stypeGroup.Controls.Add(this._pngRad);
             this._stypeGroup.Controls.Add(this._jpgRad);
             this._stypeGroup.Location = new System.Drawing.Point(15, 38);
             this._stypeGroup.Name = "_stypeGroup";
-            this._stypeGroup.Size = new System.Drawing.Size(106, 95);
+            this._stypeGroup.Size = new System.Drawing.Size(106, 119);
             this._stypeGroup.TabIndex = 3;
             this._stypeGroup.TabStop = false;
             this._stypeGroup.Text = "Screenshot Type";
@@ -175,6 +181,18 @@
             this._bmpRad.TabIndex = 2;
             this._bmpRad.Text = "BMP";
             this._bmpRad.UseVisualStyleBackColor = true;
+            // 
+            // _settingsBtn
+            // 
+            this._settingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._settingsBtn.Location = new System.Drawing.Point(6, 90);
+            this._settingsBtn.Name = "_settingsBtn";
+            this._settingsBtn.Size = new System.Drawing.Size(94, 23);
+            this._settingsBtn.TabIndex = 3;
+            this._settingsBtn.Text = "Settings";
+            this._settingsBtn.UseVisualStyleBackColor = true;
+            this._settingsBtn.Click += new System.EventHandler(this.SettingsButtonClick);
             // 
             // _pngRad
             // 
@@ -203,7 +221,7 @@
             // 
             this._intervalNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._intervalNum.Location = new System.Drawing.Point(127, 139);
+            this._intervalNum.Location = new System.Drawing.Point(127, 163);
             this._intervalNum.Maximum = new decimal(new int[] {
             86400,
             0,
@@ -227,7 +245,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 141);
+            this.label2.Location = new System.Drawing.Point(12, 165);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 5;
@@ -236,7 +254,7 @@
             // _startBtn
             // 
             this._startBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._startBtn.Location = new System.Drawing.Point(271, 203);
+            this._startBtn.Location = new System.Drawing.Point(271, 227);
             this._startBtn.Name = "_startBtn";
             this._startBtn.Size = new System.Drawing.Size(75, 23);
             this._startBtn.TabIndex = 11;
@@ -248,7 +266,7 @@
             // 
             this._stopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._stopBtn.Enabled = false;
-            this._stopBtn.Location = new System.Drawing.Point(352, 203);
+            this._stopBtn.Location = new System.Drawing.Point(352, 227);
             this._stopBtn.Name = "_stopBtn";
             this._stopBtn.Size = new System.Drawing.Size(75, 23);
             this._stopBtn.TabIndex = 12;
@@ -260,7 +278,7 @@
             // 
             this._fmtTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._fmtTxt.Location = new System.Drawing.Point(127, 165);
+            this._fmtTxt.Location = new System.Drawing.Point(127, 189);
             this._fmtTxt.Name = "_fmtTxt";
             this._fmtTxt.Size = new System.Drawing.Size(300, 20);
             this._fmtTxt.TabIndex = 8;
@@ -270,7 +288,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 168);
+            this.label3.Location = new System.Drawing.Point(12, 192);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 7;
@@ -280,7 +298,7 @@
             // 
             this._fmtHelpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._fmtHelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 165);
+            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 189);
             this._fmtHelpBtn.Name = "_fmtHelpBtn";
             this._fmtHelpBtn.Size = new System.Drawing.Size(25, 20);
             this._fmtHelpBtn.TabIndex = 9;
@@ -291,7 +309,7 @@
             // _exitBtn
             // 
             this._exitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this._exitBtn.Location = new System.Drawing.Point(12, 203);
+            this._exitBtn.Location = new System.Drawing.Point(12, 227);
             this._exitBtn.Name = "_exitBtn";
             this._exitBtn.Size = new System.Drawing.Size(75, 23);
             this._exitBtn.TabIndex = 10;
@@ -301,9 +319,11 @@
             // 
             // _capAreaGrp
             // 
-            this._capAreaGrp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._capAreaGrp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._capAreaGrp.Controls.Add(this.label8);
+            this._capAreaGrp.Controls.Add(this.label7);
+            this._capAreaGrp.Controls.Add(this.label6);
             this._capAreaGrp.Controls.Add(this._capXTxt);
             this._capAreaGrp.Controls.Add(this._includeTaskbarChk);
             this._capAreaGrp.Controls.Add(this.label5);
@@ -314,22 +334,52 @@
             this._capAreaGrp.Controls.Add(this._screensBox);
             this._capAreaGrp.Location = new System.Drawing.Point(127, 38);
             this._capAreaGrp.Name = "_capAreaGrp";
-            this._capAreaGrp.Size = new System.Drawing.Size(300, 95);
+            this._capAreaGrp.Size = new System.Drawing.Size(300, 119);
             this._capAreaGrp.TabIndex = 4;
             this._capAreaGrp.TabStop = false;
             this._capAreaGrp.Text = "Capture Area";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(197, 75);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Height:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(197, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Y:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(53, 75);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Width:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // _capXTxt
             // 
-            this._capXTxt.Location = new System.Drawing.Point(56, 46);
+            this._capXTxt.Location = new System.Drawing.Point(97, 46);
             this._capXTxt.Name = "_capXTxt";
-            this._capXTxt.Size = new System.Drawing.Size(55, 20);
+            this._capXTxt.Size = new System.Drawing.Size(50, 20);
             this._capXTxt.TabIndex = 3;
             // 
             // _includeTaskbarChk
             // 
             this._includeTaskbarChk.AutoSize = true;
-            this._includeTaskbarChk.Location = new System.Drawing.Point(56, 72);
+            this._includeTaskbarChk.Location = new System.Drawing.Point(56, 96);
             this._includeTaskbarChk.Name = "_includeTaskbarChk";
             this._includeTaskbarChk.Size = new System.Drawing.Size(99, 17);
             this._includeTaskbarChk.TabIndex = 7;
@@ -340,32 +390,32 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 49);
+            this.label5.Location = new System.Drawing.Point(53, 49);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 2;
-            this.label5.Text = "XYWH:";
+            this.label5.Text = "X:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // _capHTxt
             // 
-            this._capHTxt.Location = new System.Drawing.Point(239, 46);
+            this._capHTxt.Location = new System.Drawing.Point(244, 72);
             this._capHTxt.Name = "_capHTxt";
-            this._capHTxt.Size = new System.Drawing.Size(55, 20);
+            this._capHTxt.Size = new System.Drawing.Size(50, 20);
             this._capHTxt.TabIndex = 6;
             // 
             // _capWTxt
             // 
-            this._capWTxt.Location = new System.Drawing.Point(178, 46);
+            this._capWTxt.Location = new System.Drawing.Point(97, 72);
             this._capWTxt.Name = "_capWTxt";
-            this._capWTxt.Size = new System.Drawing.Size(55, 20);
+            this._capWTxt.Size = new System.Drawing.Size(50, 20);
             this._capWTxt.TabIndex = 5;
             // 
             // _capYTxt
             // 
-            this._capYTxt.Location = new System.Drawing.Point(117, 46);
+            this._capYTxt.Location = new System.Drawing.Point(244, 46);
             this._capYTxt.Name = "_capYTxt";
-            this._capYTxt.Size = new System.Drawing.Size(55, 20);
+            this._capYTxt.Size = new System.Drawing.Size(50, 20);
             this._capYTxt.TabIndex = 4;
             // 
             // label4
@@ -390,7 +440,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 238);
+            this.ClientSize = new System.Drawing.Size(470, 262);
             this.Controls.Add(this._capAreaGrp);
             this.Controls.Add(this._exitBtn);
             this.Controls.Add(this._fmtHelpBtn);
@@ -454,6 +504,10 @@
         private System.Windows.Forms.TextBox _capYTxt;
         private System.Windows.Forms.CheckBox _includeTaskbarChk;
         private System.Windows.Forms.TextBox _capXTxt;
+        private System.Windows.Forms.Button _settingsBtn;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 

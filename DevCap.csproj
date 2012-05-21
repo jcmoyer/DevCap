@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationWindow.Designer.cs">
+      <DependentUpon>ConfigurationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Duration.cs" />
     <Compile Include="Imaging\BmpWriter.cs" />
     <Compile Include="Imaging\IImageWriter.cs" />
@@ -63,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Imaging\ScreenCapturer.cs" />
     <Compile Include="ScreenInfo.cs" />
+    <EmbeddedResource Include="ConfigurationWindow.resx">
+      <DependentUpon>ConfigurationWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

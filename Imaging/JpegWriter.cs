@@ -6,12 +6,17 @@ using System.Linq;
 namespace DevCap.Imaging {
     class JpegWriter : IImageWriter {
         private const int DefaultQuality = 75;
+        
+        private int _quality;
 
+        
         public int Quality {
+            get { return _quality; }
             set {
                 if (value > 100) value = 100;
                 if (value < 0) value = 0;
                 _params.Param[0] = new EncoderParameter(_encoder, value);
+                _quality = value;
             }
         }
 
