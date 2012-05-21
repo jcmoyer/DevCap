@@ -377,7 +377,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(53, 75);
+            this.label6.Location = new System.Drawing.Point(12, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 8;
@@ -386,7 +386,7 @@
             // 
             // _capXTxt
             // 
-            this._capXTxt.Location = new System.Drawing.Point(97, 46);
+            this._capXTxt.Location = new System.Drawing.Point(56, 46);
             this._capXTxt.Name = "_capXTxt";
             this._capXTxt.Size = new System.Drawing.Size(50, 20);
             this._capXTxt.TabIndex = 3;
@@ -405,7 +405,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(53, 49);
+            this.label5.Location = new System.Drawing.Point(12, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 13);
             this.label5.TabIndex = 2;
@@ -421,7 +421,7 @@
             // 
             // _capWTxt
             // 
-            this._capWTxt.Location = new System.Drawing.Point(97, 72);
+            this._capWTxt.Location = new System.Drawing.Point(56, 72);
             this._capWTxt.Name = "_capWTxt";
             this._capWTxt.Size = new System.Drawing.Size(50, 20);
             this._capWTxt.TabIndex = 5;
