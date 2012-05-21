@@ -17,7 +17,7 @@ using DevCap.Properties;
 namespace DevCap.UI {
     public partial class MainWindow : Form {
         private ScreenCapturer _cap;
-        private List<RadioButton> _formatRads = new List<RadioButton>();
+        private readonly List<RadioButton> _formatRads = new List<RadioButton>();
 
         public MainWindow() {
             InitializeComponent();
