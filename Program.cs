@@ -74,14 +74,9 @@ namespace DevCap {
 
         private static void ExtractFile(string f, LzmaDecoder decoder) {
             using (var input = File.OpenRead(f)) {
-                byte[] props = new byte[5];
-                input.Read(props, 0, 5);
-                decoder.SetDecoderProperties(props);
-                byte[] fileLengthBytes = new byte[8];
-                input.Read(fileLengthBytes, 0, 8);
-                long fileLength = BitConverter.ToInt64(fileLengthBytes, 0);
+                long uncompressedLength = Lzma.PrepareDecoder(decoder, input);
                 using (var output = File.OpenWrite(f.Remove(f.Length - 5)))
-                    decoder.Code(input, output, input.Length, fileLength, null);
+                    decoder.Code(input, output, input.Length, uncompressedLength, null);
             }
         }
     }

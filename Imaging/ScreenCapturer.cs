@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using DevCap.Utilities;
 using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
 namespace DevCap.Imaging {
@@ -91,10 +92,9 @@ namespace DevCap.Imaging {
             // Rewind stream
             _compressionStream.Seek(0, SeekOrigin.Begin);
             // LZMA encode from memory to file
-            using (var stream = File.OpenWrite(CreateFilename())) {
-                _encoder.WriteCoderProperties(stream);
-                stream.Write(BitConverter.GetBytes(_compressionStream.Length), 0, 8);
-                _encoder.Code(_compressionStream, stream, -1, -1, null);
+            using (var output = File.OpenWrite(CreateFilename())) {
+                Lzma.WriteHeader(_encoder, _compressionStream, output);
+                _encoder.Code(_compressionStream, output, -1, -1, null);
             }
             // Flip stream
             _compressionStream.Seek(0, SeekOrigin.Begin);
