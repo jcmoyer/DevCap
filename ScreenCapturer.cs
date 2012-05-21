@@ -60,7 +60,7 @@ namespace DevCap {
         }
 
         private void SaveFrame() {
-            Bitmap buffer = new Bitmap(_bounds.Width, _bounds.Height, PixelFormat.Format32bppArgb);
+            Bitmap buffer = new Bitmap(_bounds.Width, _bounds.Height, PixelFormat.Format24bppRgb);
             using (Graphics g = Graphics.FromImage(buffer)) {
                 g.CopyFromScreen(_bounds.Location, new Point(), _bounds.Size);
 
