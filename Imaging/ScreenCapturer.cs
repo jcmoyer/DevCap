@@ -39,6 +39,8 @@ namespace DevCap.Imaging {
                     Point cursorDest = Cursor.Position;
                     cursorDest.X -= Cursor.Current.HotSpot.X;
                     cursorDest.Y -= Cursor.Current.HotSpot.Y;
+                    cursorDest.X -= bounds.X;
+                    cursorDest.Y -= bounds.Y;
                     Cursors.Default.Draw(g, new Rectangle(cursorDest, Cursor.Current.Size));
                 }
             }
