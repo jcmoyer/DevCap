@@ -135,6 +135,8 @@ namespace DevCap.UI {
             if (Settings.Default.CaptureArea != Rectangle.Empty) {
                 CaptureArea = Settings.Default.CaptureArea;
             }
+
+            _compress.Checked = Settings.Default.Compress;
         }
 
         private void PopulateScreens() {
@@ -178,7 +180,7 @@ namespace DevCap.UI {
                 return null;
             }
 
-            return new ScreenCapturerParameters(_dirTxt.Text, _fmtTxt.Text, CaptureArea, writer);
+            return new ScreenCapturerParameters(_dirTxt.Text, _fmtTxt.Text, CaptureArea, writer, _compress.Checked);
         }
 
         private void StartBtnClick(object sender, EventArgs e) {
@@ -266,6 +268,8 @@ namespace DevCap.UI {
             Settings.Default.Format = Format;
             Settings.Default.Interval = Interval;
             Settings.Default.ScreenshotType = SelectedFormat.ToString();
+            Settings.Default.Compress = _compress.Checked;
+
             ScreenInfo si = _screensBox.SelectedItem as ScreenInfo;
             if (si != null) {
                 Settings.Default.CaptureDevice = si.Name;

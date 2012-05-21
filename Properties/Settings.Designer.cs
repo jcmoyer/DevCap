@@ -118,5 +118,17 @@ namespace DevCap.Properties {
                 this["IncludeTaskbar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Compress {
+            get {
+                return ((bool)(this["Compress"]));
+            }
+            set {
+                this["Compress"] = value;
+            }
+        }
     }
 }

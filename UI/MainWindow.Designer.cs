@@ -62,6 +62,7 @@
             this._capYTxt = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this._screensBox = new System.Windows.Forms.ComboBox();
+            this._compress = new System.Windows.Forms.CheckBox();
             this._trayMenu.SuspendLayout();
             this._stypeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._intervalNum)).BeginInit();
@@ -161,13 +162,14 @@
             this._stypeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._stypeGroup.Controls.Add(this._compress);
             this._stypeGroup.Controls.Add(this._bmpRad);
             this._stypeGroup.Controls.Add(this._settingsBtn);
             this._stypeGroup.Controls.Add(this._pngRad);
             this._stypeGroup.Controls.Add(this._jpgRad);
             this._stypeGroup.Location = new System.Drawing.Point(15, 38);
             this._stypeGroup.Name = "_stypeGroup";
-            this._stypeGroup.Size = new System.Drawing.Size(106, 119);
+            this._stypeGroup.Size = new System.Drawing.Size(106, 139);
             this._stypeGroup.TabIndex = 3;
             this._stypeGroup.TabStop = false;
             this._stypeGroup.Text = "Screenshot Type";
@@ -186,7 +188,7 @@
             // 
             this._settingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._settingsBtn.Location = new System.Drawing.Point(6, 90);
+            this._settingsBtn.Location = new System.Drawing.Point(6, 88);
             this._settingsBtn.Name = "_settingsBtn";
             this._settingsBtn.Size = new System.Drawing.Size(94, 23);
             this._settingsBtn.TabIndex = 3;
@@ -221,7 +223,7 @@
             // 
             this._intervalNum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._intervalNum.Location = new System.Drawing.Point(127, 163);
+            this._intervalNum.Location = new System.Drawing.Point(127, 183);
             this._intervalNum.Maximum = new decimal(new int[] {
             86400,
             0,
@@ -245,7 +247,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 165);
+            this.label2.Location = new System.Drawing.Point(12, 185);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 5;
@@ -254,7 +256,7 @@
             // _startBtn
             // 
             this._startBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._startBtn.Location = new System.Drawing.Point(271, 227);
+            this._startBtn.Location = new System.Drawing.Point(271, 247);
             this._startBtn.Name = "_startBtn";
             this._startBtn.Size = new System.Drawing.Size(75, 23);
             this._startBtn.TabIndex = 11;
@@ -266,7 +268,7 @@
             // 
             this._stopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._stopBtn.Enabled = false;
-            this._stopBtn.Location = new System.Drawing.Point(352, 227);
+            this._stopBtn.Location = new System.Drawing.Point(352, 247);
             this._stopBtn.Name = "_stopBtn";
             this._stopBtn.Size = new System.Drawing.Size(75, 23);
             this._stopBtn.TabIndex = 12;
@@ -278,7 +280,7 @@
             // 
             this._fmtTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._fmtTxt.Location = new System.Drawing.Point(127, 189);
+            this._fmtTxt.Location = new System.Drawing.Point(127, 209);
             this._fmtTxt.Name = "_fmtTxt";
             this._fmtTxt.Size = new System.Drawing.Size(300, 20);
             this._fmtTxt.TabIndex = 8;
@@ -288,7 +290,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 192);
+            this.label3.Location = new System.Drawing.Point(12, 212);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 7;
@@ -298,7 +300,7 @@
             // 
             this._fmtHelpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._fmtHelpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 189);
+            this._fmtHelpBtn.Location = new System.Drawing.Point(433, 209);
             this._fmtHelpBtn.Name = "_fmtHelpBtn";
             this._fmtHelpBtn.Size = new System.Drawing.Size(25, 20);
             this._fmtHelpBtn.TabIndex = 9;
@@ -309,7 +311,7 @@
             // _exitBtn
             // 
             this._exitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this._exitBtn.Location = new System.Drawing.Point(12, 227);
+            this._exitBtn.Location = new System.Drawing.Point(12, 247);
             this._exitBtn.Name = "_exitBtn";
             this._exitBtn.Size = new System.Drawing.Size(75, 23);
             this._exitBtn.TabIndex = 10;
@@ -334,7 +336,7 @@
             this._capAreaGrp.Controls.Add(this._screensBox);
             this._capAreaGrp.Location = new System.Drawing.Point(127, 38);
             this._capAreaGrp.Name = "_capAreaGrp";
-            this._capAreaGrp.Size = new System.Drawing.Size(300, 119);
+            this._capAreaGrp.Size = new System.Drawing.Size(300, 139);
             this._capAreaGrp.TabIndex = 4;
             this._capAreaGrp.TabStop = false;
             this._capAreaGrp.Text = "Capture Area";
@@ -436,11 +438,21 @@
             this._screensBox.TabIndex = 1;
             this._screensBox.SelectedValueChanged += new System.EventHandler(this.ScreensBoxSelectedValueChanged);
             // 
+            // _compress
+            // 
+            this._compress.AutoSize = true;
+            this._compress.Location = new System.Drawing.Point(6, 116);
+            this._compress.Name = "_compress";
+            this._compress.Size = new System.Drawing.Size(88, 17);
+            this._compress.TabIndex = 4;
+            this._compress.Text = "Comp. LZMA";
+            this._compress.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 262);
+            this.ClientSize = new System.Drawing.Size(470, 282);
             this.Controls.Add(this._capAreaGrp);
             this.Controls.Add(this._exitBtn);
             this.Controls.Add(this._fmtHelpBtn);
@@ -508,6 +520,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox _compress;
     }
 }
 
