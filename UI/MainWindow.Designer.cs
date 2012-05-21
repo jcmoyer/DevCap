@@ -197,8 +197,6 @@
             // 
             // _settingsBtn
             // 
-            this._settingsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._settingsBtn.Location = new System.Drawing.Point(65, 16);
             this._settingsBtn.Name = "_settingsBtn";
             this._settingsBtn.Size = new System.Drawing.Size(75, 23);
