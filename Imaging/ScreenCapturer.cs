@@ -10,13 +10,17 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-// Because of conflict with property name.
+using DevCap.Utilities;
+using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
 namespace DevCap.Imaging {
     class ScreenCapturer : PeriodicTask {
         public const string DefaultFormatString = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
 
         private readonly ScreenCapturerParameters _params;
+
+        private readonly MemoryStream _compressionStream = new MemoryStream();
+        private readonly LzmaEncoder _encoder = new LzmaEncoder();
 
         private long _number;
 
@@ -49,22 +53,52 @@ namespace DevCap.Imaging {
 
         private string CreateFilename() {
             var now = DateTime.Now;
-            return _params.FormatString
+            string filename = _params.FormatString
                 .Replace("$YEAR", now.Year.ToString("D4"))
                 .Replace("$MONTH", now.Month.ToString("D2"))
                 .Replace("$DAY", now.Day.ToString("D2"))
                 .Replace("$HOUR", now.Hour.ToString("D2"))
                 .Replace("$MINUTE", now.Minute.ToString("D2"))
                 .Replace("$SECOND", now.Second.ToString("D2"))
-                .Replace("$NUMBER", Interlocked.Increment(ref _number).ToString("D8")) + "." + _params.Writer.Extension;
+                .Replace("$NUMBER", Interlocked.Increment(ref _number).ToString("D8"));
+
+            if (_params.Compress) {
+                filename += "." + _params.Writer.Extension + ".lzma";
+            } else {
+                filename += "." + _params.Writer.Extension;
+            }
+
+            return Path.Combine(_params.Directory, filename);
         }
 
         protected override void Run() {
-            Image screen = Capture(_params.Bounds);
-            string fn = Path.Combine(_params.Directory, CreateFilename());
-            using (var stream = File.OpenWrite(fn)) {
-                _params.Writer.Write(screen, stream);
+            using (Image screen = Capture(_params.Bounds)) {
+                if (_params.Compress) {
+                    WriteCompressedFile(screen);
+                } else {
+                    WriteFile(screen);
+                }
             }
+        }
+
+        private void WriteFile(Image screenshot) {
+            using (var stream = File.OpenWrite(CreateFilename())) {
+                _params.Writer.Write(screenshot, stream);
+            }
+        }
+
+        private void WriteCompressedFile(Image screenshot) {
+            _params.Writer.Write(screenshot, _compressionStream);
+            // Rewind stream
+            _compressionStream.Seek(0, SeekOrigin.Begin);
+            // LZMA encode from memory to file
+            using (var output = File.OpenWrite(CreateFilename())) {
+                Lzma.WriteHeader(_encoder, _compressionStream, output);
+                _encoder.Code(_compressionStream, output, -1, -1, null);
+            }
+            // Flip stream
+            _compressionStream.Seek(0, SeekOrigin.Begin);
+            _compressionStream.SetLength(0);
         }
     }
 }

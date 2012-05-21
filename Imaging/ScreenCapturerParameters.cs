@@ -12,12 +12,18 @@ namespace DevCap.Imaging {
         private readonly string _formatString;
         private readonly Rectangle _bounds;
         private readonly IImageWriter _writer;
+        private readonly bool _compress;
 
-        public ScreenCapturerParameters(string directory, string formatString, Rectangle bounds, IImageWriter writer) {
+        public ScreenCapturerParameters(string directory, string formatString, Rectangle bounds, IImageWriter writer)
+            : this(directory, formatString, bounds, writer, false) {
+        }
+
+        public ScreenCapturerParameters(string directory, string formatString, Rectangle bounds, IImageWriter writer, bool compress) {
             _directory = directory;
             _formatString = formatString;
             _bounds = bounds;
             _writer = writer;
+            _compress = compress;
 
             if (String.IsNullOrWhiteSpace(_formatString)) {
                 _formatString = ScreenCapturer.DefaultFormatString;
@@ -38,6 +44,10 @@ namespace DevCap.Imaging {
 
         public IImageWriter Writer {
             get { return _writer; }
+        }
+
+        public bool Compress {
+            get { return _compress; }
         }
     }
 }
