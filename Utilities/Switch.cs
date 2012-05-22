@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DevCap.Utilities {
+﻿namespace DevCap.Utilities {
     class Switch {
         private readonly string _name;
         private readonly string _value;
