@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using DevCap.SevenZip.Compress.LZMA;
 using DevCap.Timing;
 using DevCap.Utilities;
 using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
@@ -19,10 +20,6 @@ namespace DevCap.Imaging {
         public const string DefaultFormatString = "$YEAR$MONTH$DAY_$HOUR$MINUTE$SECOND";
 
         private readonly ScreenCapturerParameters _params;
-
-        private readonly MemoryStream _compressionStream = new MemoryStream();
-        private readonly LzmaEncoder _encoder = new LzmaEncoder();
-
         private long _number;
 
         public ScreenCapturer(ScreenCapturerParameters param) {
@@ -89,17 +86,19 @@ namespace DevCap.Imaging {
         }
 
         private void WriteCompressedFile(Image screenshot) {
-            _params.Writer.Write(screenshot, _compressionStream);
-            // Rewind stream
-            _compressionStream.Seek(0, SeekOrigin.Begin);
-            // LZMA encode from memory to file
-            using (var output = File.OpenWrite(CreateFilename())) {
-                Lzma.WriteHeader(_encoder, _compressionStream, output);
-                _encoder.Code(_compressionStream, output, -1, -1, null);
+            LzmaEncoder encoder = new LzmaEncoder();
+            using (MemoryStream buffer = new MemoryStream()) {
+                _params.Writer.Write(screenshot, buffer);
+
+                // Rewind stream
+                buffer.Seek(0, SeekOrigin.Begin);
+
+                // LZMA encode from memory to file
+                using (var output = File.OpenWrite(CreateFilename())) {
+                    Lzma.WriteHeader(encoder, buffer, output);
+                    encoder.Code(buffer, output, -1, -1, null);
+                }
             }
-            // Flip stream
-            _compressionStream.Seek(0, SeekOrigin.Begin);
-            _compressionStream.SetLength(0);
         }
     }
 }
