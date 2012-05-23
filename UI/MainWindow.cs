@@ -13,6 +13,7 @@ using System.IO;
 using System.Windows.Forms;
 using DevCap.Imaging;
 using DevCap.Properties;
+using DevCap.Utilities;
 
 namespace DevCap.UI {
     public partial class MainWindow : Form {
@@ -187,7 +188,7 @@ namespace DevCap.UI {
         private void StartBtnClick(object sender, EventArgs e) {
             if (_cap == null) {
                 if (!IsCaptureAreaValid) {
-                    MessageBox.Show("The capture area is not valid.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Report.Error("The capture area is not valid.");
                     return;
                 }
 
@@ -197,14 +198,14 @@ namespace DevCap.UI {
                         Interval = TimeSpan.FromSeconds(Convert.ToDouble(_intervalNum.Value))
                     };
                 } else {
-                    MessageBox.Show("You must select an image format.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Report.Error("You must select an image format.");
                     return;
                 }
             }
             try {
                 _cap.Start();
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Report.Error(ex.Message);
                 return;
             }
 
