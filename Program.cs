@@ -11,6 +11,7 @@ using DevCap.Properties;
 using DevCap.UI;
 using DevCap.Utilities;
 using LzmaDecoder = DevCap.SevenZip.Compress.LZMA.Decoder;
+using LzmaEncoder = DevCap.SevenZip.Compress.LZMA.Encoder;
 
 namespace DevCap {
     static class Program {
@@ -19,7 +20,14 @@ namespace DevCap {
         /// </summary>
         [STAThread]
         static void Main(string[] args) {
-            if (ProcessArguments(args)) {
+            var cl = CommandLine.Parse<CommandLineArgs>(args);
+
+            if (cl.Operation != null) {
+                try {
+                    PerformOperation(cl);
+                } catch (Exception ex) {
+                    Report.Error(ex.Message);
+                }
                 return;
             }
 
@@ -32,44 +40,44 @@ namespace DevCap {
             }
         }
 
-        private static bool ProcessArguments(string[] args) {
-            bool any = false;
-            for (var i = 0; i < args.Length; i++) {
-                Switch o;
-                if (TryGetSwitch(args, i, out o)) {
-                    any = true;
-
-                    switch (o.Name) {
-                        case "x":
-                            if (Directory.Exists(o.Value)) ProcessDirectory(o.Value);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    i++;
-                }
+        private static void PerformOperation(CommandLineArgs t) {
+            switch (t.Operation.ToLowerInvariant()) {
+                case "extract":
+                    TryExtract(t.Directory);
+                    break;
+                case "optimize":
+                    TryOptimize(t.Directory, t.File);
+                    break;
+                case "unpack":
+                    TryUnpack(t.File, t.Directory);
+                    break;
             }
-            return any;
         }
 
-        private static bool TryGetSwitch(string[] args, int at, out Switch o) {
-            if (at < args.Length &&args[at].StartsWith("/")) {
-                string name = args[at].TrimStart('/');
-                if (at + 1 < args.Length) {
-                    string value = args[at + 1];
-                    o = new Switch(name, value);
-                    return true;
-                }
+        private static void TryExtract(string directory) {
+            if (Directory.Exists(directory)) {
+                LzmaDecoder decoder = new LzmaDecoder();
+                ProcessDirectory(directory, fn => ExtractFile(fn, decoder));
             }
-            o = null;
-            return false;
         }
 
-        private static void ProcessDirectory(string directory) {
-            LzmaDecoder decoder = new LzmaDecoder();
+        private static void TryOptimize(string directory, string filename) {
+            filename = filename ?? "optimized.lzmo";
+            if (Directory.Exists(directory)) {
+                Lzma.Pack(directory, Path.Combine(directory, filename));
+            }
+        }
+
+        private static void TryUnpack(string filename, string directory) {
+            if (File.Exists(filename)) {
+                FileInfo fi = new FileInfo(filename);
+                Lzma.Unpack(filename, fi.DirectoryName);
+            }
+        }
+
+        private static void ProcessDirectory(string directory, Action<string> processor) {
             foreach (var f in Directory.GetFiles(directory, "*.lzma")) {
-                ExtractFile(f, decoder);
+                processor(f);
             }
         }
 
