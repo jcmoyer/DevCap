@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DevCap")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Screenshot utility for development logging")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("J.C. Moyer")]
 [assembly: AssemblyProduct("DevCap")]
