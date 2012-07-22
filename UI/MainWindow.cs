@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -49,7 +50,7 @@ namespace DevCap.UI {
             }
         }
 
-        private string Directory {
+        private string OutputDirectory {
             get { return _dirTxt.Text; }
         }
 
@@ -266,7 +267,7 @@ namespace DevCap.UI {
         }
 
         private void ApplySettings() {
-            Settings.Default.Directory = Directory;
+            Settings.Default.Directory = OutputDirectory;
             Settings.Default.Format = Format;
             Settings.Default.Interval = Interval;
             Settings.Default.ScreenshotType = SelectedFormat.ToString();
@@ -372,6 +373,22 @@ If no format string is given, it will default to:
             RadioButton r = (RadioButton)sender;
             // Make settings button follow the selected radio button
             _settingsBtn.Location = new Point(_settingsBtn.Location.X, r.Location.Y - 3);
+        }
+
+        private void openOutputDirectoryToolStripMenuItem_Click(object sender, EventArgs e) {
+            OpenBtnClick(sender, e);
+        }
+
+        private void OpenBtnClick(object sender, EventArgs e) {
+            if (!Directory.Exists(_dirTxt.Text)) {
+                try {
+                    Directory.CreateDirectory(_dirTxt.Text);
+                } catch (Exception ex) {
+                    Report.Error(ex.Message);
+                    return;
+                }
+            }
+            Process.Start("explorer.exe", _dirTxt.Text);
         }
     }
 }
